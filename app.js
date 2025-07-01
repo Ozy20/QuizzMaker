@@ -2,7 +2,22 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-app.listen(port,"0.0.0.0", () => {
-  console.log(`Server running on port ${port}`);
+const loginRouter = require('./routers/login');
+const registerRouter = require('./routers/register');
+
+mongoose.connect(process.env.MONGO_URI).then(() => {
+    console.log('Connected to MongoDB');
+}).catch(err => {
+    console.error('MongoDB connection error:', err)
+});
+
+app.use(express.json());
+app.use('/login', loginRouter);
+app.use('/register', registerRouter);
+
+app.listen(port, "0.0.0.0", () => {
+    console.log(`Server running on port ${port}`);
 });

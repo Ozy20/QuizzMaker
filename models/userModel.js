@@ -7,8 +7,8 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     userName: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    userRole: { type: String, enum: ["teacher", "user"], default: "teacher" },
-    createdQuizzes: [{ quizzId: { type: mongoose.Schema.Types.ObjectId, ref: "Quiz" }, quizTitle: { type: String } }], //for teachers
+    userRole: { type: String, enum: ["teacher", "student"], default: "teacher" },
+    createdQuizzes: [{ quizzId: { type: mongoose.Schema.Types.ObjectId, ref: "Quiz" }, quizTitle: { type: String ,required:true}}], //for teachers
     attemptedQuizzes: [{ quizzId: { type: mongoose.Schema.Types.ObjectId, ref: "Quiz" } }], //for users
 });
 
