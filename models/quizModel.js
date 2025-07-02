@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const quizzSchema = new mongoose.Schema({
-    title: { type: String, required: true },
+    title: { type: String, required:true, unique: true },
     subject: { type: String, required: true },
-    description: { type: String, required: true },
+    description: { type: String},
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     mcqQuestions: [
         {
@@ -23,6 +23,7 @@ const quizzSchema = new mongoose.Schema({
     ,
     qustionsType: { type: String, enum: ["mcq", "freeText", "both"], default: "mcq" },
     numberOfQuestions: { type: Number, required: true },
+    quizDuration: { type: Number, required: true }, // in minutes
     createdAt: { type: Date, default: Date.now },
 
 });
