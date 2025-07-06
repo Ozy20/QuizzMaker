@@ -1,11 +1,19 @@
 import './App.css';
-//import LoginSinup from './pages/loginSignup/login_signUp';
-import Dashboard from './pages/teacherQuizzes/dashboard';
+import LoginSignUp from "./pages/loginSignUp/loginSignUp"
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import StdDash from './pages/stdDashboard/dashboard';
+import TeacherDash from './pages/teacherDashboard/dashboard';
 function App() {
   return (
-    <div>
-     <Dashboard/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<LoginSignUp />}></Route>
+        <Route path='/teacherDashboard' element={<TeacherDash />}></Route>
+        <Route path='/studentDashboard' element={<StdDash />}></Route>
+      </Routes>
+    </BrowserRouter>
+
+
   );
 }
 

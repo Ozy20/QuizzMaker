@@ -1,51 +1,35 @@
-/* quiz.css */
-
-.container {
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 15px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
+.info-container{
+     flex: 1 1 300px; /* Flex shorthand: grow, shrink, basis */
+                    /* grow: 1 (allows item to grow) */
+                    /* shrink: 1 (allows item to shrink) */
+                    /* basis: 300px (ideal width before growing/shrinking) */
+    max-width: calc(33.33% - 40px); /* Adjust based on gap, aim for 3 items per row */
+                                   /* Or simply set a max-width */
+    min-width: 280px; /* Minimum width before wrapping */
+    
+    /* Add styling for your quiz items (e.g., border, shadow, padding) */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center; /* Example */
+    background-color: #8275b7;
+}
+.info-container:hover {
+    background-color: #9b8edb; /* A lighter shade of #8275b7 */
+    transform: translateY(-5px); /* Move the element up by 5 pixels */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Optional: enhance shadow on hover */
 }
 
-.container:hover {
-    transform: translateY(5px);
-    box-shadow: 0 15px 30px rgba(102, 126, 234, 0.2);
-    border-color: #667eea;
+/* Media queries for different screen sizes (as suggested previously, for responsiveness) */
+@media (max-width: 768px) {
+    .info-container {
+        max-width: calc(50% - 30px); /* 2 items per row on medium screens */
+    }
 }
 
-.element {
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.element:first-child {
-    font-size: 20px;
-    font-weight: bold;
-    color: #667eea;
-    margin-bottom: 8px;
-}
-
-.element:nth-child(2) {
-    font-size: 14px;
-    color: #764ba2;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.element:nth-child(3) {
-    font-size: 16px;
-    color: #666;
-    line-height: 1.5;
-}
-
-.element:last-child {
-    font-size: 12px;
-    color: #999;
-    margin-top: 15px;
-    margin-bottom: 0;
+@media (max-width: 480px) {
+    .info-container {
+        max-width: 100%; /* 1 item per row on small screens */
+    }
 }
