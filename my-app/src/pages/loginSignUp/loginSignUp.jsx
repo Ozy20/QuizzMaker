@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import "./login.css"
 import api from "../../API";
 import axios from "axios"
+import "./login.css"
 
 const LoginSignUp = () => {
     const [action, setAction] = useState("Login");
@@ -139,15 +140,15 @@ const LoginSignUp = () => {
                 <div className="input">
                     <input type="password" placeholder="password" name="password" onChange={handleForm} />
                 </div>
-                <div className="userRole">
-                    <button className="role" onClick={() => { setUserRole("student") }}>student</button>
-                    <button className="role" onClick={() => { setUserRole("teacher") }}>teacher</button>
-                </div>
+                {action === "Sign Up"?<div className="userRole">
+                    <button className="role" style={{background:userRole==="student"? "#6d5fa3":"#fff" }} onClick={() => { setUserRole("student") }}>student</button>
+                    <button className="role" style={{background:userRole==="teacher"? "#6d5fa3":"#fff" }} onClick={() => { setUserRole("teacher") }}>teacher</button>
+                </div>:<></>}
             </div>
             
             {error && <div className="error-message">{error}</div>}
             
-            <div className="submit" onClick={action === "Login" ? handelLogin : handleSingUp} disabled={loading}>
+            <div className="final-submit" onClick={action === "Login" ? handelLogin : handleSingUp} disabled={loading}>
                 {loading ? "Loading..." : (action === "Login" ? "Login" : "Sign Up")}
             </div>
         </div>

@@ -40,7 +40,7 @@ function Quiz({ title, subject, description, createdAt, userRole, quizId }) {
             <div className="info">{subject}</div>
             <div className="info">{description}</div>
             <div className="info">{createdAt}</div>
-            {userRole == "teacher" ? <button onClick={handelDeletion}>Delete</button> : <div></div>}
+            {userRole === "teacher" ? <button className="delete-button" onClick={handelDeletion}>Delete</button> : <div></div>}
         
         </div>
     );
