@@ -5,6 +5,7 @@ import StdDash from './pages/stdDashboard/dashboard';
 import TeacherDash from './pages/teacherDashboard/dashboard';
 import NewQuiz from './pages/newQuiz/newQuiz';
 import QuizDetails from './pages/quizDetails/quizDetails';
+import QuizAttempt from './pages/quizAttempt/quizAttempt';
 function App() {
   return (
     <BrowserRouter>
@@ -14,6 +15,7 @@ function App() {
         <Route path='/studentDashboard' element={<StdDash />}></Route>
         <Route path="/createQuiz" element={<NewQuiz/>}></Route>
         <Route path='/quiz/:quizId' element={<QuizDetails/>}></Route>
+        <Route path='/attemptQuiz/:quizId' element = {<QuizAttempt/>}></Route>
       </Routes>
     </BrowserRouter>
 
