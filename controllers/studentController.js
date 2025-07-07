@@ -41,7 +41,7 @@ const startQuiz = async (req, res) => {
         const quizId = req.params.quizId;
         const userId = req.user._id;
 
-        const quiz = await Quiz.findOne({_id:quizId}).session(session);
+        const quiz = await Quiz.findOne({ _id: quizId }).session(session);
         if (!quiz) {
             await session.abortTransaction();
             return res.status(404).json({ message: "Quiz not found." });
@@ -136,7 +136,7 @@ const submitAnswers = async (req, res) => {
                 if (
                     correctOption &&
                     correctOption.option.trim().toLowerCase() === answer.trim().toLowerCase()
-               ) {
+                ) {
                     score += mcq.marks || 1;
                     isCorrect = true;
                 }
@@ -167,11 +167,25 @@ const submitAnswers = async (req, res) => {
     }
 };
 
-
+const getQuizAttempt = async (req, res) => {
+    try {
+        const quizId = req.params.quizId;
+        const quiz = await Quiz.findOne({ _id: quizId }).select("freeTextQuestions mcqQuestions")
+        console.log(quiz)
+        if (!quiz) {
+            return res.status(404).json({ message: "Quiz not found" });
+        }
+        return res.status(200).json({ data: quiz });
+    } catch (error) {
+        console.error("Error fetching quiz:", error);
+        return res.status(500).json({ message: "Error fetching quiz" });
+    }
+}
 
 module.exports = {
     getAllQuizzes,
     getSingleQuiz,
     startQuiz,
-    submitAnswers
+    submitAnswers,
+    getQuizAttempt
 }
