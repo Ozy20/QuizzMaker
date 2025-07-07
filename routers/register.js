@@ -35,7 +35,7 @@ router.post('/', userValidator, async (req, res) => {
             createdQuizzes: [],
             attemptedQuizzes: []
         });
-
+        
         if (!newUser) {
             return res.status(500).json({ error: "Something went wrong while creating user" });
         }

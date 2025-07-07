@@ -70,7 +70,7 @@ const createQuiz = async (req, res) => {
 const getAllQuizzes = async (req, res) => {
     try {
         const teacherId = req.user._id;
-        const quizzes = await Quiz.find({ createdBy: teacherId }).select('title subject description createdAt');
+        const quizzes = await Quiz.find({ createdBy: teacherId }).select('_id title subject description createdAt');
         if (!quizzes || quizzes.length === 0) {
             return res.status(404).json({ message: "No quizzes found for this teacher" });
         }
