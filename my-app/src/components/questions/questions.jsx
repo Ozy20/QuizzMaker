@@ -1,4 +1,4 @@
-
+import "./questions.css"
 const MCQOption = ({ option, isCorrect }) => {
     return (
         <div className="mcq-option">

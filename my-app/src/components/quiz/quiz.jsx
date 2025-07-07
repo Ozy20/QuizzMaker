@@ -36,10 +36,10 @@ function Quiz({ title, subject, description, createdAt, userRole, quizId }) {
     }
     return (
         <div className="info-container" >
-            <div className="info">{title}</div>
-            <div className="info">{subject}</div>
-            <div className="info">{description}</div>
-            <div className="info">{createdAt}</div>
+            <div className="info">Title: {title}</div>
+            <div className="info">subject: {subject}</div>
+            <div className="info">Description: {description}</div>
+            <div className="info">Published at: {createdAt}</div>
             {userRole === "teacher" ? <button className="delete-button" onClick={handelDeletion}>Delete</button> : <div></div>}
         
         </div>

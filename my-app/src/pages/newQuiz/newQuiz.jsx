@@ -1,8 +1,12 @@
 import "./newQuiz.css"
 import { useState } from "react";
 import { MCQOption, MCQQuestion, FreeTextQuestion } from "../../components/questions/questions"
+import createQuiz from "../../services/createQuiz";
 
+
+// final arr before any req with usestates
 const NewQuiz = () => {
+    const token = localStorage.getItem("token")
     const [Quiz, setQuiz] = useState({
         title: '',
         subject: '',
@@ -13,7 +17,8 @@ const NewQuiz = () => {
     })
     const [numberOfQuestions, setNumberOfQuestions] = useState(0)
     const [loading, setLoading] = useState(false)
-
+    const [created, setCreated] = useState(false)
+    const [error, setError] = useState("")
     //mcq qestions
     const [mcq, setMcq] = useState({
         question: "",
@@ -74,12 +79,15 @@ const NewQuiz = () => {
             options: options,
             marks: 0
         };
-        setMcqs([...mcqs, newMcq]);
+        const updatedMcqs = [...mcqs, newMcq];
+        setMcqs(updatedMcqs);
         setNumberOfQuestions(numberOfQuestions + 1);
         setMcqQuestion("");
         setOptions([]);
-        console.log(mcqs)
-    }
+
+        setQuiz({ ...Quiz, mcqQuestions: updatedMcqs });
+        console.log(updatedMcqs);
+    };
 
     const freeTextHandleQestion = (e) => {
         const { value } = e.target;
@@ -98,13 +106,55 @@ const NewQuiz = () => {
             answer: ftAnswer,
             marks: 0
         };
-        setFts([...fts, newFT]);
+        const updatedFts = [...fts, newFT];
+        setFts(updatedFts);
         setNumberOfQuestions(numberOfQuestions + 1);
         setFtQuestion("");
         setFtAnswer("");
-        console.log(fts)
-    }
 
+        setQuiz({ ...Quiz, freeTextQuestions: updatedFts });
+        console.log(updatedFts);
+    };
+
+    const handelCreating = async () => {
+        try {
+            setLoading(true);
+            setError("");
+
+            const finalQuiz = {
+                ...Quiz,
+                mcqQuestions: mcqs,
+                freeTextQuestions: fts
+            };
+
+            if (!finalQuiz.title || !finalQuiz.subject || !finalQuiz.quizDuration) {
+                setError("missing required field");
+                return;
+            }
+            else if (numberOfQuestions <= 0) {
+                setError("can not create an empty quiz");
+                return;
+            }
+            else {
+                const token = localStorage.getItem("token");
+                const response = await createQuiz(token, finalQuiz);
+                if (response.success === true) {
+                    setCreated(true);
+                }
+                else {
+                    setError(response.message);
+                }
+            }
+        }
+        catch (error) {
+            console.log(error);
+            setError("Error while creating the quiz");
+        }
+        finally {
+            setLoading(false);
+            console.log("Final Quiz:", { ...Quiz, mcqQuestions: mcqs, freeTextQuestions: fts });
+        }
+    };
 
     return (
         <div className="quiz-container">
@@ -113,7 +163,7 @@ const NewQuiz = () => {
             <input type="text" className="add-subject" placeholder="Add the quiz subject" name="subject"
                 onChange={(e) => setQuiz({ ...Quiz, subject: e.target.value })} />
             <input type="text" className="add-duration" placeholder="Add the quiz duration" name="quizDuration"
-                onChange={(e) => setQuiz({ ...Quiz, quizDuration: e.target.value })} />
+                onChange={(e) => setQuiz({ ...Quiz, quizDuration: parseInt(e.target.value) })} />
             <input type="text" className="add-description" placeholder="Add the quiz description" name="description"
                 onChange={(e) => setQuiz({ ...Quiz, description: e.target.value })} />
             <div className="mcq-adder">
@@ -148,32 +198,33 @@ const NewQuiz = () => {
                 <div className="send-quiz" onClick={() => { addFT(); setQuiz({ ...Quiz, freeTextQuestions: fts }) }}>Add question</div>
             </div>
             <div className="quistions-list">
-                    {mcqs.length > 0 ? (
-                        mcqs.map((mcq, idx) => (
-                            <MCQQuestion
-                                key={idx}
-                                question={mcq.question}
-                                options={mcq.options}
-                                
-                            />
-                        ))
-                    ) : (
-                        <div>No MCQ added yet</div>
-                    )}
-                    {fts.length > 0 ? (
-                        fts.map((ft, idx) => (
-                            <FreeTextQuestion
-                                key={idx}
-                                question={ft.question}
-                                answer={ft.answer}
-                                
-                            />
-                        ))
-                    ) : (
-                        <div>No free text questions added yet</div>
-                    )}
+                {mcqs.length > 0 ? (
+                    mcqs.map((mcq, idx) => (
+                        <MCQQuestion
+                            key={idx}
+                            question={mcq.question}
+                            options={mcq.options}
+
+                        />
+                    ))
+                ) : (
+                    <div>No MCQ added yet</div>
+                )}
+                {fts.length > 0 ? (
+                    fts.map((ft, idx) => (
+                        <FreeTextQuestion
+                            key={idx}
+                            question={ft.question}
+                            answer={ft.answer}
+
+                        />
+                    ))
+                ) : (
+                    <div>No free text questions added yet</div>
+                )}
             </div>
-            <div className="send-quiz">Create</div>
+            {loading === false ? (<div className="send-quiz" onClick={() => handelCreating()}>Create</div>) : (<div className="send-quiz">creating...</div>)}
+            {error !== "" ? (<div>{error}</div>) : (<div></div>)}
         </div>
     );
 
