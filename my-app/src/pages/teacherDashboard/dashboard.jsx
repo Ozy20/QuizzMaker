@@ -1,6 +1,7 @@
 import Quiz from "../../components/quiz/quiz";
 import { useState, useEffect } from "react";
 import getQuizzes from "../../services/getQuizzes";
+import { useNavigate } from "react-router-dom";
 import "./teacherDash.css"
 const TeacherDash = () => {
     const [data, setData] = useState([]);
@@ -8,7 +9,7 @@ const TeacherDash = () => {
     const [error, setError] = useState("");
     const [qn, setQn] = useState(0);
     const token = localStorage.getItem("token");
-
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchQuizzes = async () => {
             try {
@@ -51,7 +52,7 @@ const TeacherDash = () => {
         <div>
             <div className="Dash-header">
                 <div className="your-quizzes" >Your quizzes  {qn > 0 ? qn : ""}</div>
-                <button className="newQuiz">create new quiz</button>
+                <button className="newQuiz" onClick={()=>{navigate("/createQuiz")}}>create new quiz</button>
             </div>
             <div className="line"></div>
             <div className="Quizzes-container">
