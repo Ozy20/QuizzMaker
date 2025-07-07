@@ -60,10 +60,10 @@ const QuizDetails = () => {
     }, [token, userRole, quizId])
 
     useEffect(() => {
-    console.log("Updated data:", data);
-    console.log("Updated mcqs:", mcqs);
-    console.log("Updated fts:", fts);
-}, [data, mcqs, fts]);
+        console.log("Updated data:", data);
+        console.log("Updated mcqs:", mcqs);
+        console.log("Updated fts:", fts);
+    }, [data, mcqs, fts]);
 
     if (loading) {
         return <div>Loading quiz details...</div>;
@@ -79,7 +79,7 @@ const QuizDetails = () => {
                 <div className="quiz-title">Quiz title:{data.title}</div>
                 <div className="quiz-subject">Subject:{data.subject}</div>
                 <div className="quiz-description">Description:{data.description}</div>
-                <div className="quiz-duration">DuizDuration:{data.quizDuration}</div>
+                <div className="quiz-duration">DuizDuration:{data.quizDuration} mins</div>
                 <div className="created-at">{data.createdAt}</div>
                 <div className="quistions-list">
                     {mcqs.length > 0 ? (
@@ -107,19 +107,22 @@ const QuizDetails = () => {
                     ) : (
                         <div>No free text questions</div>
                     )}
-                </div>
 
-            </div>) : (<div className="">
-                <div className="quiz-title">{data.title}</div>
-                <div className="quiz-subject">{data.subject}</div>
-                <div className="quiz-description">{data.description}</div>
-                <div className="quiz-duration">{data.quizDuration}</div>
+                </div>
+                <button className="attend">modify quiz</button>
+
+            </div>) : (<div className="details-container">
+                <div className="quiz-title">Title:{data.title}</div>
+                <div className="quiz-subject">Subject:{data.subject}</div>
+                <div className="quiz-description">Description:{data.description}</div>
+                <div className="quiz-duration">Duration:{data.quizDuration}mins</div>
                 <div className="created-at">{data.createdAt}</div>
                 <div className="creator">
-                    <div className="creator-name">{data.createdBy.name}</div>
-                    <div className="creator-name">{data.createdBy.userName}</div>
+                    <div className="creator-name">Techer : {data.createdBy.name}</div>
+                    <div className="creator-name">Teacher username : {data.createdBy.userName}</div>
 
                 </div>
+
 
             </div>)
     );

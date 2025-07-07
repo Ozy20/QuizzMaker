@@ -2,10 +2,11 @@ import "./newQuiz.css"
 import { useState } from "react";
 import { MCQOption, MCQQuestion, FreeTextQuestion } from "../../components/questions/questions"
 import createQuiz from "../../services/createQuiz";
-
+import { useNavigate } from "react-router-dom";
 
 // final arr before any req with usestates
 const NewQuiz = () => {
+    const navigate = useNavigate();
     const [Quiz, setQuiz] = useState({
         title: '',
         subject: '',
@@ -214,7 +215,7 @@ const NewQuiz = () => {
                     <div>No free text questions added yet</div>
                 )}
             </div>
-            {loading === false ? (<div className="send-quiz" onClick={() => handelCreating()}>Create</div>) : (<div className="send-quiz">creating...</div>)}
+            {loading === false ? (<div className="send-quiz" onClick={() => {handelCreating();navigate("/teacherDashboard",{ state: { refresh: true }})}}>Create</div>) : (<div className="send-quiz">creating...</div>)}
             {error !== "" ? (<div>{error}</div>) : (<div></div>)}
         </div>
     );

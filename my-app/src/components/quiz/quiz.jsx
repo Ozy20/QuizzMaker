@@ -42,7 +42,7 @@ function Quiz({ title, subject, description, createdAt, userRole, quizId }) {
             <div className="info">subject: {subject}</div>
             <div className="info">Description: {description}</div>
             <div className="info">Published at: {createdAt}</div>
-            {userRole === "teacher" ? <button className="delete-button" nClick={(e) => {
+            {userRole === "teacher" ? <button className="delete-button" onClick={(e) => {
                 e.stopPropagation(); 
                 handelDeletion();
             }}>Delete</button> : <div></div>}

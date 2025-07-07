@@ -20,7 +20,7 @@ const TeacherDash = () => {
 
                 if (response.success === true) {
                     setData(response.data);
-                    setQn(data.length)
+                    setQn(response.data.length)
                 } else {
                     setError(response.message || "failed to fetch quizzes");
                 }
@@ -51,7 +51,7 @@ const TeacherDash = () => {
     return (
         <div>
             <div className="Dash-header">
-                <div className="your-quizzes" >Your quizzes  {qn > 0 ? qn : ""}</div>
+                <div className="your-quizzes" >Your quizzes : {qn > 0 ? qn : ""}</div>
                 <button className="newQuiz" onClick={()=>{navigate("/createQuiz")}}>create new quiz</button>
             </div>
             <div className="line"></div>
