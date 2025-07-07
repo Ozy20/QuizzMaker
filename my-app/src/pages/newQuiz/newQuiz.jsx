@@ -6,7 +6,6 @@ import createQuiz from "../../services/createQuiz";
 
 // final arr before any req with usestates
 const NewQuiz = () => {
-    const token = localStorage.getItem("token")
     const [Quiz, setQuiz] = useState({
         title: '',
         subject: '',
@@ -20,11 +19,7 @@ const NewQuiz = () => {
     const [created, setCreated] = useState(false)
     const [error, setError] = useState("")
     //mcq qestions
-    const [mcq, setMcq] = useState({
-        question: "",
-        options: [],
-        marks: 0
-    })
+    
     const [mcqQuestion, setMcqQuestion] = useState("")
     const [fullOption, setFullOption] = useState({
         option: "",
@@ -36,11 +31,7 @@ const NewQuiz = () => {
     const [options, setOptions] = useState([])
 
     //ft questions
-    const [freeText, setFreeText] = useState({
-        question: "",
-        answer: "",
-        marks: 0
-    });
+
     const [ftQuestion, setFtQuestion] = useState("");
     const [ftAnswer, setFtAnswer] = useState("");
     //all

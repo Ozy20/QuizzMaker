@@ -1,10 +1,12 @@
 import "./quiz.css"
 import deleteQuiz from "../../services/deleteQuiz";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 function Quiz({ title, subject, description, createdAt, userRole, quizId }) {
     const [loading, setLoading] = useState(false);
     const [deleted, setDeleted] = useState(false);
     const [error, setError] = useState("")
+    const navigate = useNavigate();
     const handelDeletion = async () => {
         try {
             setLoading(true);
@@ -22,7 +24,7 @@ function Quiz({ title, subject, description, createdAt, userRole, quizId }) {
             console.log(error)
             setError("Error while deleting the quiz")
         }
-        finally{
+        finally {
             setLoading(false)
         }
     }
@@ -31,17 +33,20 @@ function Quiz({ title, subject, description, createdAt, userRole, quizId }) {
         return (<div className="info-container"> deleting quiz
         </div>);
     }
-    if(deleted){
+    if (deleted) {
         return;
     }
     return (
-        <div className="info-container" >
+        <div className="info-container" onClick={() => { navigate(`/quiz/${quizId}`) }}>
             <div className="info">Title: {title}</div>
             <div className="info">subject: {subject}</div>
             <div className="info">Description: {description}</div>
             <div className="info">Published at: {createdAt}</div>
-            {userRole === "teacher" ? <button className="delete-button" onClick={handelDeletion}>Delete</button> : <div></div>}
-        
+            {userRole === "teacher" ? <button className="delete-button" nClick={(e) => {
+                e.stopPropagation(); 
+                handelDeletion();
+            }}>Delete</button> : <div></div>}
+
         </div>
     );
 }
