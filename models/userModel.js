@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     userRole: { type: String, enum: ["teacher", "student"], default: "teacher" },
     createdQuizzes: [{ quizzId: { type: mongoose.Schema.Types.ObjectId, ref: "Quiz" }, quizTitle: { type: String ,required:true}}], //for teachers
-    attemptedQuizzes: [{ quizzId: { type: mongoose.Schema.Types.ObjectId, ref: "Quiz" } }], //for users
+    attemptedQuizzes: [{ quizzId: { type: mongoose.Schema.Types.ObjectId, ref: "Quiz" } }], 
 });
 
 userSchema.method("genAuthToken", function () {
