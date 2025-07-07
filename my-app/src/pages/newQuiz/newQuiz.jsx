@@ -148,7 +148,30 @@ const NewQuiz = () => {
                 <div className="send-quiz" onClick={() => { addFT(); setQuiz({ ...Quiz, freeTextQuestions: fts }) }}>Add question</div>
             </div>
             <div className="quistions-list">
-
+                    {mcqs.length > 0 ? (
+                        mcqs.map((mcq, idx) => (
+                            <MCQQuestion
+                                key={idx}
+                                question={mcq.question}
+                                options={mcq.options}
+                                
+                            />
+                        ))
+                    ) : (
+                        <div>No MCQ added yet</div>
+                    )}
+                    {fts.length > 0 ? (
+                        fts.map((ft, idx) => (
+                            <FreeTextQuestion
+                                key={idx}
+                                question={ft.question}
+                                answer={ft.answer}
+                                
+                            />
+                        ))
+                    ) : (
+                        <div>No free text questions added yet</div>
+                    )}
             </div>
             <div className="send-quiz">Create</div>
         </div>
