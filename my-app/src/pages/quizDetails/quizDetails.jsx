@@ -112,16 +112,17 @@ const QuizDetails = () => {
                 <button className="attend">modify quiz</button>
 
             </div>) : (<div className="details-container">
-                <div className="quiz-title">Title:{data.title}</div>
-                <div className="quiz-subject">Subject:{data.subject}</div>
-                <div className="quiz-description">Description:{data.description}</div>
-                <div className="quiz-duration">Duration:{data.quizDuration}mins</div>
+                <div className="quiz-title">Title : {data.title}</div>
+                <div className="quiz-subject">Subject : {data.subject}</div>
+                <div className="quiz-description">Description : {data.description}</div>
+                <div className="quiz-duration">Duration : {data.quizDuration}mins</div>
                 <div className="created-at">{data.createdAt}</div>
                 <div className="creator">
-                    <div className="creator-name">Techer : {data.createdBy.name}</div>
+                    <div className="creator-name">Teacher : {data.createdBy.name}</div>
                     <div className="creator-name">Teacher username : {data.createdBy.userName}</div>
 
                 </div>
+                <button className="attend">attend quiz</button>
 
 
             </div>)
